@@ -2,6 +2,7 @@ package com.egen.model;
 
 public class Order {
     private  String id;
+    private String g;
 
     public Order(String id){
         this.id = id;
