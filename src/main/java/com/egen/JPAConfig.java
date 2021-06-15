@@ -2,7 +2,9 @@ package com.egen;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -17,13 +19,21 @@ public class JPAConfig {
 //	@Bean
 	public LocalContainerEntityManagerFactoryBean emf() {
 		//TODO: configure emf
-		return null;
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+		emf.setDataSource(null);
+		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		return emf;
 	}
 
 //	@Bean
 	public DataSource dataSource() {
 		//TODO: configure data source bean
-		return  null;
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost:3306/order_mgmt?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC");
+		ds.setUsername("root");
+		ds.setPassword("password");
+		return  ds;
 	}
 
 //	@Bean
