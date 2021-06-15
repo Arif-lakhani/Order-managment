@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 
 @RestController
 public class OrderController {
@@ -26,7 +26,7 @@ public class OrderController {
         return null;
     }
 
-    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(ZonedDateTime startTime, ZonedDateTime endTime){
+    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(TimeZone startTime, TimeZone endTime){
         //TODO
         return null;
     }
