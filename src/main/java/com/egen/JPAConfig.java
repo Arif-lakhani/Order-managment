@@ -20,27 +20,27 @@ public class JPAConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean emf() {
-		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-		emf.setDataSource(dataSource());
-		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		emf.setPackagesToScan("com.egen.model");
+		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		entityManagerFactoryBean.setDataSource(dataSource());
+		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		entityManagerFactoryBean.setPackagesToScan("com.egen.model");
 
 
-		emf.setJpaProperties(this.jpaProperties());
-		return emf;
+		entityManagerFactoryBean.setJpaProperties(this.jpaProperties());
+		return entityManagerFactoryBean;
 	}
 
 	@Bean
 	public DataSource dataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
 		//ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setDriverClassName("org.postgresql.Driver");
+		dataSource.setDriverClassName("org.postgresql.Driver");
 		//ds.setUrl("jdbc:mysql://localhost:3306/order_processing?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-		ds.setUrl("jdbc:postgresql://localhost:5432/orderprocessing?useJDBCCompliantTimezoneShift=true");
-		ds.setUsername("postgres");
-		ds.setPassword("root");
-		return ds;
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/orderprocessing?useJDBCCompliantTimezoneShift=true");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("root");
+		return dataSource;
 	}
 
 	@Bean

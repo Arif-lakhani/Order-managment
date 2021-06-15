@@ -23,12 +23,16 @@ public class Payment {
     @ManyToOne
     private Order order;
 
-    enum Method {
-        CASH, CREDIT_CARD, DEBIT_CARD, DIGITAL
-    }
-
     public Payment() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public Method getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(Method paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public Order getOrder() {

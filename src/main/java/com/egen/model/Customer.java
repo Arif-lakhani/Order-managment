@@ -20,6 +20,9 @@ public class Customer {
     @OneToMany
     private List<Order> orders;
 
+    @OneToMany
+    private List<Address> addresses;
+
     public Customer() {
         this.id = UUID.randomUUID().toString();
     }
@@ -30,6 +33,22 @@ public class Customer {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public String getFirstName() {

@@ -13,10 +13,6 @@ public class Order {
     @Column(columnDefinition = "VARCHAR(36)")
     private  String id;
 
-
-    private Date creadtedDate = new Date();
-    private Date modifiedDate = new Date();
-
     @ManyToOne
     private Address shippingAddress;
 
@@ -28,6 +24,38 @@ public class Order {
 
     @OneToMany
     private List<Payment> payment;
+
+    @OneToMany
+    private List<OrderItem> orderItems;
+
+    private Date creadtedDate = new Date();
+    private Date modifiedDate = new Date();
+
+    private Status status;
+
+    private int subTotal;
+
+    private int tax;
+
+    private int shipping_Charges;
+
+    private int total;
+
+    public Order() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public Order(String id){
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public Address getShippingAddress() {
         return shippingAddress;
@@ -61,28 +89,6 @@ public class Order {
         this.payment = payment;
     }
 
-    enum Status{
-        COMPLETED, PENDING, SHIPPED, CANCELED
-    }
-
-    private Status status;
-
-    private int subTotal;
-
-    private int tax;
-
-    private int shipping_Charges;
-
-    private int total;
-
-
-    public Order() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public Order(String id){
-        this.id = UUID.randomUUID().toString();
-    }
 
     public String getId() {
         return id;
@@ -147,4 +153,5 @@ public class Order {
     public void setTotal(int total) {
         this.total = total;
     }
+
 }

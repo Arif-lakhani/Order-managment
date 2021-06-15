@@ -1,9 +1,6 @@
 package com.egen.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,14 +11,19 @@ public class Address {
     @Id
     private String id;
 
+    @ManyToOne
+    private Customer customer;
+
+    @OneToMany
+    private List<Order> orders;
+
     private String addressLine1;
     private String addressLine2;
     private String city;
     private String state;
     private String zip;
 
-    @OneToMany
-    private List<Order> orders;
+
 
     public Address() {
         this.id = UUID.randomUUID().toString();
@@ -33,6 +35,22 @@ public class Address {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public String getAddressLine1() {
