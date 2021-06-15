@@ -3,17 +3,17 @@ package com.egen.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import java.util.UUID;
 
 @Entity
-public class ShipmentType {
+public class Shipment {
+
     @Id
     @Column(name="shipment_id",nullable = false)
     private String shipmentId;
-    private String shipmentType;
+    private String shipmentMethod;
 
-    public ShipmentType() {
+    public Shipment() {
         this.shipmentId = UUID.randomUUID().toString();
     }
 
@@ -26,18 +26,18 @@ public class ShipmentType {
     }
 
     public String getShipmentType() {
-        return shipmentType;
+        return shipmentMethod;
     }
 
-    public void setShipmentType(String shipmentType) {
-        this.shipmentType = shipmentType;
+    public void setShipmentType(String shipmentMethod) {
+        this.shipmentMethod = shipmentMethod;
     }
 
     @Override
     public String toString() {
         return "ShipmentType{" +
                 "shipmentId='" + shipmentId + '\'' +
-                ", shipmentType='" + shipmentType + '\'' +
+                ", shipmentType='" + shipmentMethod + '\'' +
                 '}';
     }
 }

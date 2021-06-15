@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Order {
+public class Orders {
 
     @Id
     @Column(name = "order_id",nullable = false)
@@ -17,20 +17,17 @@ public class Order {
     private Timestamp shipDate;
 
     @ManyToOne(cascade= {CascadeType.ALL})
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="order_id",insertable = false,updatable = false)
     private Customer customer;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="shipment_id")
-    private ShipmentType shipmentType;
+    @JoinColumn(name="order_id")
+    private Shipment shipment;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "payment_id")
-    private List<Payment> payment;
 
-    public Order() { this.orderId = UUID.randomUUID().toString();}
+    public Orders() { this.orderId = UUID.randomUUID().toString();}
 
-    public Order(String id) {
+    public Orders(String id) {
         this.id = id;
     }
 
@@ -50,20 +47,12 @@ public class Order {
         this.customer = customer;
     }
 
-    public ShipmentType getShipmentType() {
-        return shipmentType;
+    public Shipment getShipmentId() {
+        return shipment;
     }
 
-    public List<Payment> getPayment() {
-        return payment;
-    }
-
-    public void setPayment(List<Payment> payment) {
-        this.payment = payment;
-    }
-
-    public void setShipmentType(ShipmentType shipmentType) {
-        this.shipmentType = shipmentType;
+    public void setShipmentId(Shipment shipmentId) {
+        this.shipment = shipmentId;
     }
 
     public String getId() {
@@ -92,14 +81,13 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Orders{" +
                 "orderId='" + orderId + '\'' +
                 ", id='" + id + '\'' +
                 ", dateOrdered=" + dateOrdered +
                 ", shipDate=" + shipDate +
                 ", customer=" + customer +
-                ", shipmentType=" + shipmentType +
-                ", payment=" + payment +
+                ", shipmentId=" + shipment +
                 '}';
     }
 }

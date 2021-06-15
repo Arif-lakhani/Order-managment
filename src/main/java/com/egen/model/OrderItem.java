@@ -18,11 +18,11 @@ public class OrderItem {
     private double total;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id")
     private List<Item> item;
 
     @OneToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name = "order_status_id")
+    @JoinColumn(name = "order_item_id",referencedColumnName = "order_item_id")
     private OrderStatus orderStatus;
 
     public OrderItem() {

@@ -1,6 +1,6 @@
 package com.egen.controller;
 
-import com.egen.model.Order;
+import com.egen.model.Orders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,36 +15,37 @@ public class OrderController {
      * implement the following endpoints
      */
 
-    @GetMapping("order")
-    public ResponseEntity<List<Order>> getAllOrders(){
+    @GetMapping("orders")
+    public ResponseEntity<List<Orders>> getAllOrders(){
         //TODO
-        return ResponseEntity.ok(Collections.singletonList(new Order("id")));
+      //  return ResponseEntity.ok(Collections.singletonList(new Order("id")));
+        return ResponseEntity.ok(Collections.singletonList(new Orders()));
     }
 
-    public ResponseEntity<List<Order>> getOrderById(String id){
-        //TODO
-        return null;
-    }
-
-    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(TimeZone startTime, TimeZone endTime){
+    public ResponseEntity<List<Orders>> getOrderById(String id){
         //TODO
         return null;
     }
 
-    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(String zip){
+    public ResponseEntity<List<Orders>> getAllOrdersWithInInterval(TimeZone startTime, TimeZone endTime){
         //TODO
         return null;
     }
 
-    public ResponseEntity<Order> placeOrder(Order order){
+    public ResponseEntity<List<Orders>> top10OrdersWithHighestDollarAmountInZip(String zip){
+        //TODO
         return null;
     }
 
-    public ResponseEntity<Order> cancelOrder(Order order){
+    public ResponseEntity<Orders> placeOrder(Orders order){
         return null;
     }
 
-    public ResponseEntity<Order> updateOrder(Order order){
+    public ResponseEntity<Orders> cancelOrder(Orders order){
+        return null;
+    }
+
+    public ResponseEntity<Orders> updateOrder(Orders order){
         return null;
     }
 }

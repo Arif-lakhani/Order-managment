@@ -1,8 +1,7 @@
 package com.egen.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +17,10 @@ public class Customer {
     private String state;
     private String country;
     private String zipCode;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private List<Orders> ordersList;
 
     public Customer() {
         this.customerId = UUID.randomUUID().toString();
@@ -47,12 +50,20 @@ public class Customer {
         this.shippingAddressLine1 = shippingAddressLine1;
     }
 
-    public String getGetShippingAddressLine2() {
+    public String getShippingAddressLine2() {
         return shippingAddressLine2;
     }
 
-    public void setGetShippingAddressLine2(String shippingAddressLine2) {
+    public void setShippingAddressLine2(String shippingAddressLine2) {
         this.shippingAddressLine2 = shippingAddressLine2;
+    }
+
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     public String getCity() {
@@ -93,11 +104,12 @@ public class Customer {
                 "customerId='" + customerId + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", shippingAddressLine1='" + shippingAddressLine1 + '\'' +
-                ", getShippingAddressLine2='" + shippingAddressLine2 + '\'' +
+                ", shippingAddressLine2='" + shippingAddressLine2 + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
                 ", zipCode='" + zipCode + '\'' +
+                ", ordersList=" + ordersList +
                 '}';
     }
 }
