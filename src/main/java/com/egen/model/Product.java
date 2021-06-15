@@ -70,15 +70,10 @@ public class Product {
         return subTotal;
     }
 
-
-    public static double sum(Product a, Product b) {
-        return a.getSubtotalTax() + b.getSubtotalTax();
-    }
-
     @Override
     public String toString() {
         return "product [productId=" + productId + ", productName=" + productName + ", quantity=" + quantity + ", price=" + price
-                + ", subtotal=" + subTotalTax + "]";
+                + ", subtotal=" + subTotal + "]";
     }
 
 
