@@ -10,9 +10,8 @@ public class Order {
     private String order_customer_id;
     private List<Product> products;
     private double order_subtotal;
-    private String order_tax;
-    private String order_shipping_charges;
-    private String order_total;
+    private double order_tax;
+    private double order_total;
     private List<Payment> payment;
     private Address order_billing_address;
     private Address order_shipping_address;
@@ -29,15 +28,14 @@ public class Order {
         this.id = id;
     }
 
-    public Order(String status, String order_customer_id, List<Product> products, double order_subtotal, String order_tax,
-                 String order_shipping_charges, String order_total, List<Payment> payment,
+    public Order(String status, String order_customer_id, List<Product> products, double order_subtotal, double order_tax,
+                 double order_total, List<Payment> payment,
                  Address order_billing_address, Address order_shipping_address) {
         this.status = status;
         this.order_customer_id = order_customer_id;
         this.products = products;
         this.order_subtotal = order_subtotal;
         this.order_tax = order_tax;
-        this.order_shipping_charges = order_shipping_charges;
         this.order_total = order_total;
         this.payment = payment;
         this.order_billing_address = order_billing_address;
@@ -72,22 +70,15 @@ public class Order {
         this.order_subtotal = order_subtotal;
     }
 
-    public String getOrderTax() {
+    public double getOrderTax() {
         return order_tax;
     }
 
-    public void setOrderTax(String order_tax) {
+    public void setOrderTax(double order_tax) {
         this.order_tax = order_tax;
     }
 
-    public String getOrderShippingCharges() {
-        return order_shipping_charges;
-    }
-
-    public void setOrderShippingCharges(String order_shipping_charges) {
-        this.order_shipping_charges = order_shipping_charges;
-    }
-    public String getOrder_total() {
+    public double getOrder_total() {
         return order_total;
     }
 
@@ -99,10 +90,9 @@ public class Order {
         this.payment = payment;
     }
 
-    public void setOrder_total(String order_total) {
+    public void setOrder_total(double order_total) {
         this.order_total = order_total;
     }
-
 
     public Address getOrder_billing_address() {
         return order_billing_address;

@@ -9,6 +9,7 @@ public class Product {
     private double price;
     private double subTotalWithoutTax;
     private double subTotalTax;
+    private double subTotal;
 
     public Product() {}
 
@@ -21,6 +22,7 @@ public class Product {
         this.tax = tax;
         this.subTotalWithoutTax = this.price * this.quantity;
         this.subTotalTax = this.tax / 100 * this.subTotalWithoutTax;
+        this.subTotal = this.subTotalTax  + this.subTotalWithoutTax;
     }
 
     public String getProductId() {
@@ -42,6 +44,7 @@ public class Product {
         this.quantity = quantity;
         this.subTotalWithoutTax = this.price * this.quantity;
         this.subTotalTax = this.tax / 100 * this.subTotalWithoutTax;
+        this.subTotal = this.subTotalTax  + this.subTotalWithoutTax;
     }
     public double getTax() {
         return tax;
@@ -57,8 +60,14 @@ public class Product {
         this.subTotalWithoutTax = this.price * this.quantity;
         this.subTotalTax = this.subTotalWithoutTax + this.tax / 100 * this.subTotalWithoutTax;
     }
+    public double getSubTotalWithoutTax() {
+        return subTotalWithoutTax;
+    }
     public double getSubtotalTax() {
         return subTotalTax;
+    }
+    public double getSubTotal() {
+        return subTotal;
     }
 
 
