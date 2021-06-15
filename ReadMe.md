@@ -1,4 +1,4 @@
-# Module 1 - Creating Schema
+# Module 1 - Designing New DB Schema from a legacy order schema
 
 
 The Schema for the given Module 1 Project Description is as belows:
