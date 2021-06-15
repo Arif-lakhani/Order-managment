@@ -1,6 +1,7 @@
 package com.egen;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -14,29 +15,38 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+@Slf4j
 @Configuration
 @EnableTransactionManagement
 public class JPAConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean emf() {
+		log.info("Entity Manager Factory Bean Initialized");
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+		log.info("Setting up data source info");
 		entityManagerFactoryBean.setDataSource(dataSource());
+
+
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactoryBean.setPackagesToScan("com.egen.model");
 
 
+		log.info("Setting up Jpa Properties");
 		entityManagerFactoryBean.setJpaProperties(this.jpaProperties());
 		return entityManagerFactoryBean;
 	}
 
 	@Bean
 	public DataSource dataSource() {
+		log.info("dataSource Instance Initialized");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
 		//ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		log.info("Setting up PostgresSQL driver");
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		//ds.setUrl("jdbc:mysql://localhost:3306/order_processing?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		log.info("Setting up Url, username and Password for driver class");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/orderprocessing?useJDBCCompliantTimezoneShift=true");
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("root");
@@ -45,6 +55,7 @@ public class JPAConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+		log.info("transactionManager Initialized");
 		JpaTransactionManager transactionManager = new JpaTransactionManager(emf);
 		return transactionManager;
 	}

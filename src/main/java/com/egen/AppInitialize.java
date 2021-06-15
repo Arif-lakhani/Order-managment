@@ -1,7 +1,9 @@
 package com.egen;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@Slf4j
 public class AppInitialize extends AbstractAnnotationConfigDispatcherServletInitializer{
 	/**
 	 * implement the following methods
@@ -20,6 +22,7 @@ public class AppInitialize extends AbstractAnnotationConfigDispatcherServletInit
 
 	@Override
 	protected String[] getServletMappings() {
+		log.info("Getting all /api/ mappings");
 		return new  String[]{"/api/*"};
 	}
 }
