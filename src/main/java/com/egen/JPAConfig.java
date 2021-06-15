@@ -32,6 +32,7 @@ public class JPAConfig {
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private Properties jpaProperties() {
 		//TODO: configure jpa properties
 		return null;
