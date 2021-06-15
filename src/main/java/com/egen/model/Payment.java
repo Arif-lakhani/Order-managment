@@ -3,7 +3,7 @@ package com.egen.model;
 import com.egen.model.enums.PaymentMethod;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -13,7 +13,7 @@ public class Payment {
     private String payment_id;
 
     private String order_payment_method;
-    private Timestamp order_payment_date;
+    private ZonedDateTime order_payment_date;
     private Double order_payment_confirmation_number;
     private Double order_payment_amount;
 
@@ -44,11 +44,11 @@ public class Payment {
         this.order_payment_method = order_payment_method;
     }
 
-    public Timestamp getOrder_payment_date() {
+    public ZonedDateTime getOrder_payment_date() {
         return order_payment_date;
     }
 
-    public void setOrder_payment_date(Timestamp order_payment_date) {
+    public void setOrder_payment_date(ZonedDateTime order_payment_date) {
         this.order_payment_date = order_payment_date;
     }
 
@@ -74,5 +74,13 @@ public class Payment {
 
     public void setBilling(Billing billing) {
         this.billing = billing;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

@@ -1,11 +1,10 @@
 package com.egen.model;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 import com.egen.model.enums.OrderStatus;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -17,9 +16,9 @@ public class Order {
     private Double order_sub_total;
     private Double order_total;
     private Double order_tax;
-    private Timestamp order_date;
-    private Timestamp order_created_date;
-    private Timestamp order_modified_date;
+    private ZonedDateTime order_date;
+    private ZonedDateTime order_created_date;
+    private ZonedDateTime order_modified_date;
 
     @Column(name="order_status")
     @Enumerated(EnumType.STRING)
@@ -27,8 +26,8 @@ public class Order {
 
     public Order(String order_id){
         this.order_id = UUID.randomUUID().toString();
-        this.order_date = new Timestamp(new Date().getTime());
-//        this.orderStatus = OrderStatus.PENDING;
+        this.order_date = ZonedDateTime.now();
+        this.orderStatus = OrderStatus.PLACED;
     }
 
     public Order() {
@@ -83,27 +82,27 @@ public class Order {
         this.order_tax = order_tax;
     }
 
-    public Timestamp getOrder_date() {
+    public ZonedDateTime getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Timestamp order_date) {
+    public void setOrder_date(ZonedDateTime order_date) {
         this.order_date = order_date;
     }
 
-    public Timestamp getOrder_created_date() {
+    public ZonedDateTime getOrder_created_date() {
         return order_created_date;
     }
 
-    public void setOrder_created_date(Timestamp order_created_date) {
+    public void setOrder_created_date(ZonedDateTime order_created_date) {
         this.order_created_date = order_created_date;
     }
 
-    public Timestamp getOrder_modified_date() {
+    public ZonedDateTime getOrder_modified_date() {
         return order_modified_date;
     }
 
-    public void setOrder_modified_date(Timestamp order_modified_date) {
+    public void setOrder_modified_date(ZonedDateTime order_modified_date) {
         this.order_modified_date = order_modified_date;
     }
 
@@ -114,6 +113,31 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    public List<OrderItems> getOrderItemsList() {
+        return orderItemsList;
+    }
+
+    public void setOrderItemsList(List<OrderItems> orderItemsList) {
+        this.orderItemsList = orderItemsList;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public Shipping getShipping() {
+        return shipping;
+    }
+
+    public void setShipping(Shipping shipping) {
+        this.shipping = shipping;
+    }
+
     //    private  String id;
 //
 //    public Order(String id){

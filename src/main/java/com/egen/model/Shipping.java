@@ -16,7 +16,6 @@ public class Shipping {
     private String order_shipping_state;
     private int order_shipping_zip;
 
-    private String order_status;
 
     @Column(name="order_shipping_type")
     @Enumerated(EnumType.STRING)
@@ -72,14 +71,6 @@ public class Shipping {
 
     public void setOrder_shipping_zip(int order_shipping_zip) {
         this.order_shipping_zip = order_shipping_zip;
-    }
-
-    public String getOrder_status() {
-        return order_status;
-    }
-
-    public void setOrder_status(String order_status) {
-        this.order_status = order_status;
     }
 
     public ShippingType getShippingType() {
