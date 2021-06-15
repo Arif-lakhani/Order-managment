@@ -15,16 +15,8 @@ public class Order {
     private String order_payment_method;
     private String order_payment_date;
     private String order_payment_confirmation_number;
-    private String order_billing_addressline1;
-    private String order_billing_addressline2;
-    private String order_billing_city;
-    private String order_billing_state;
-    private String order_billing_zip;
-    private String order_shipping_addressline1;
-    private String order_shipping_addressline2;
-    private String order_shipping_city;
-    private String order_shipping_state;
-    private String order_shipping_zip;
+    private Address order_billing_address;
+    private Address order_shipping_address;
 
     public Order(String id){
         this.id = id;
@@ -41,10 +33,7 @@ public class Order {
                  String order_item_qty, String order_subtotal, String order_tax,
                  String order_shipping_charges, String order_total, String order_payment_method,
                  String order_payment_date, String order_payment_confirmation_number,
-                 String order_billing_addressline1, String order_billing_addressline2,
-                 String order_billing_city, String order_billing_state, String order_billing_zip,
-                 String order_shipping_addressline1, String order_shipping_addressline2,
-                 String order_shipping_city, String order_shipping_state, String order_shipping_zip) {
+                 Address order_billing_address,Address order_shipping_address) {
         this.status = status;
         this.order_customer_id = order_customer_id;
         this.order_item_name = order_item_name;
@@ -56,16 +45,8 @@ public class Order {
         this.order_payment_method = order_payment_method;
         this.order_payment_date = order_payment_date;
         this.order_payment_confirmation_number = order_payment_confirmation_number;
-        this.order_billing_addressline1 = order_billing_addressline1;
-        this.order_billing_addressline2 = order_billing_addressline2;
-        this.order_billing_city = order_billing_city;
-        this.order_billing_state = order_billing_state;
-        this.order_billing_zip = order_billing_zip;
-        this.order_shipping_addressline1 = order_shipping_addressline1;
-        this.order_shipping_addressline2 = order_shipping_addressline2;
-        this.order_shipping_city = order_shipping_city;
-        this.order_shipping_state = order_shipping_state;
-        this.order_shipping_zip = order_shipping_zip;
+        this.order_billing_address = order_billing_address;
+        this.order_shipping_address = order_shipping_address;
     }
 
     public String getOrderStatus() {
@@ -152,83 +133,19 @@ public class Order {
         this.order_payment_confirmation_number = order_payment_confirmation_number;
     }
 
-    public String getOrder_billing_addressline1() {
-        return order_billing_addressline1;
+    public Address getOrder_billing_address() {
+        return order_billing_address;
     }
 
-    public void setOrder_billing_addressline1(String order_billing_addressline1) {
-        this.order_billing_addressline1 = order_billing_addressline1;
+    public void setOrder_billing_address(Address order_billing_address) {
+        this.order_billing_address = order_billing_address;
     }
 
-    public String getOrder_billing_addressline2() {
-        return order_billing_addressline2;
+    public Address getOrder_shipping_address() {
+        return order_shipping_address;
     }
 
-    public void setOrder_billing_addressline2(String order_billing_addressline2) {
-        this.order_billing_addressline2 = order_billing_addressline2;
-    }
-
-    public String getOrder_billing_city() {
-        return order_billing_city;
-    }
-
-    public void setOrder_billing_city(String order_billing_city) {
-        this.order_billing_city = order_billing_city;
-    }
-
-    public String getOrder_billing_state() {
-        return order_billing_state;
-    }
-
-    public void setOrder_billing_state(String order_billing_state) {
-        this.order_billing_state = order_billing_state;
-    }
-
-    public String getOrder_billing_zip() {
-        return order_billing_zip;
-    }
-
-    public void setOrder_billing_zip(String order_billing_zip) {
-        this.order_billing_zip = order_billing_zip;
-    }
-
-    public String getOrder_shipping_addressline1() {
-        return order_shipping_addressline1;
-    }
-
-    public void setOrder_shipping_addressline1(String order_shipping_addressline1) {
-        this.order_shipping_addressline1 = order_shipping_addressline1;
-    }
-
-    public String getOrder_shipping_addressline2() {
-        return order_shipping_addressline2;
-    }
-
-    public void setOrder_shipping_addressline2(String order_shipping_addressline2) {
-        this.order_shipping_addressline2 = order_shipping_addressline2;
-    }
-
-    public String getOrder_shipping_city() {
-        return order_shipping_city;
-    }
-
-    public void setOrder_shipping_city(String order_shipping_city) {
-        this.order_shipping_city = order_shipping_city;
-    }
-
-    public String getOrder_shipping_state() {
-        return order_shipping_state;
-    }
-
-    public void setOrder_shipping_state(String order_shipping_state) {
-        this.order_shipping_state = order_shipping_state;
-    }
-
-    public String getOrder_shipping_zip() {
-        return order_shipping_zip;
-    }
-
-    public void setOrder_shipping_zip(String order_shipping_zip) {
-        this.order_shipping_zip = order_shipping_zip;
+    public void setOrder_shipping_address(Address order_shipping_address) {
+        this.order_shipping_address = order_shipping_address;
     }
 }
