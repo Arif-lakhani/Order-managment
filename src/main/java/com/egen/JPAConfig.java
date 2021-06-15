@@ -19,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+@PropertySource(value="classpath:application.properties")
 public class JPAConfig {
 
 	@Autowired
@@ -31,12 +31,6 @@ public class JPAConfig {
 		emf.setDataSource(getDataSource());
 		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		emf.setPackagesToScan("com.egen.model");
-
-		Properties properties = new Properties();
-		properties.put("hibernate.dialiect","org.hibernate.dialect.MySQL8Dialect");
-		properties.put("hibernate.hbm2ddl.auto","create");
-		properties.put("hibernate.show_sql","true");
-		emf.setJpaProperties(properties);
 		return emf;
 	}
 
@@ -57,7 +51,11 @@ public class JPAConfig {
 	}
 
 	private Properties jpaProperties() {
-		//TODO: configure jpa properties
-		return null;
-	}
+			Properties props = new Properties();
+			props.put("hibernate.show_sql", "true");
+			props.put("hibernate.dialect","org.hibernate.dialect.MySQL8Dialect");
+			props.put("hibernate.hbm2ddl.auto", "create");
+			return props;
+
+		}
 }
