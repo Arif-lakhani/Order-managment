@@ -1,6 +1,7 @@
 package com.egen.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -8,16 +9,19 @@ import java.util.UUID;
 public class OrderItem {
 
     @Id
-    @Column(name = "order_item_id")
+    @Column(name = "order_item_id",nullable = false)
     private String orderItemId;
-    private String itemId;
     private int itemQuantity;
     private double itemPrice;
     private double itemTax;
     private double shippingCharges;
     private double total;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "item_id")
+    private List<Item> item;
+
+    @OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;
 
@@ -33,12 +37,26 @@ public class OrderItem {
         this.orderItemId = orderItemId;
     }
 
-    public String getItemId() {
-        return itemId;
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "orderItemId='" + orderItemId + '\'' +
+                ", itemQuantity=" + itemQuantity +
+                ", itemPrice=" + itemPrice +
+                ", itemTax=" + itemTax +
+                ", shippingCharges=" + shippingCharges +
+                ", total=" + total +
+                ", item=" + item +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public List<Item> getItem() {
+        return item;
+    }
+
+    public void setItem(List<Item> item) {
+        this.item = item;
     }
 
     public int getItemQuantity() {
@@ -89,17 +107,4 @@ public class OrderItem {
         this.orderStatus = orderStatus;
     }
 
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "orderItemId='" + orderItemId + '\'' +
-                ", itemId='" + itemId + '\'' +
-                ", itemQuantity=" + itemQuantity +
-                ", itemPrice=" + itemPrice +
-                ", itemTax=" + itemTax +
-                ", shippingCharges=" + shippingCharges +
-                ", total=" + total +
-                ", orderStatus=" + orderStatus +
-                '}';
-    }
 }

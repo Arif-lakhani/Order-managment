@@ -1,5 +1,6 @@
 package com.egen.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 public class Item {
 
     @Id
+    @Column(name="item_id",nullable = false)
     private String itemId;
     private String itemName;
     private double itemPrice;

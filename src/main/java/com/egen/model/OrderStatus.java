@@ -11,7 +11,7 @@ import java.util.UUID;
 public class OrderStatus {
 
     @Id
-    @Column(name = "order_status_id")
+    @Column(name = "order_status_id",nullable = false)
     private String orderStatusId;
     private String status;
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Entity
 public class ShipmentType {
     @Id
-    @Column(name="shipment_id")
+    @Column(name="shipment_id",nullable = false)
     private String shipmentId;
     private String shipmentType;
 

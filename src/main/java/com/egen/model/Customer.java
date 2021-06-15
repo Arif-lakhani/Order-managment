@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    @Column(name="customer_id")
+    @Column(name="customer_id",nullable = false)
     private String customerId;
     private String customerName;
     private String shippingAddressLine1;

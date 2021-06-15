@@ -29,6 +29,7 @@ public class JPAConfig {
 	public LocalContainerEntityManagerFactoryBean emf() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setDataSource(getDataSource());
+		emf.setJpaProperties(jpaProperties());
 		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		emf.setPackagesToScan("com.egen.model");
 		return emf;

@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Payment {
 
     @Id
-    @Column(name = "payment_id")
+    @Column(name = "payment_id",nullable = false)
     private String paymentConfirmationId;
     private double amount;
     private Timestamp paymentDate;
@@ -22,10 +22,6 @@ public class Payment {
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="customer_id")
     private Customer customer;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="order_id")
-    private Order order;
 
     public Payment() {
         this.paymentConfirmationId = UUID.randomUUID().toString();
@@ -47,13 +43,6 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     public Timestamp getPaymentDate() {
         return paymentDate;
@@ -132,7 +121,6 @@ public class Payment {
                 ", country='" + country + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", customer=" + customer +
-                ", order=" + order +
                 '}';
     }
 }

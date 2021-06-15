@@ -10,30 +10,29 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @Column(name = "order_id",columnDefinition = "VARCHAR(36)")
+    @Column(name = "order_id",nullable = false)
     private  String orderId;
+    private String id;
     private Timestamp dateOrdered;
     private Timestamp shipDate;
 
-
-    public Order(String id) {
-        this.orderId = UUID.randomUUID().toString();
-    }
-
-    public Order() {
-    }
-
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(cascade= {CascadeType.ALL})
     @JoinColumn(name="customer_id")
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="shipment_id")
     private ShipmentType shipmentType;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "payment_id")
     private List<Payment> payment;
+
+    public Order() { this.orderId = UUID.randomUUID().toString();}
+
+    public Order(String id) {
+        this.id = id;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -67,6 +66,14 @@ public class Order {
         this.shipmentType = shipmentType;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Timestamp getDateOrdered() {
         return dateOrdered;
     }
@@ -87,6 +94,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId='" + orderId + '\'' +
+                ", id='" + id + '\'' +
                 ", dateOrdered=" + dateOrdered +
                 ", shipDate=" + shipDate +
                 ", customer=" + customer +
