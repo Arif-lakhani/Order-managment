@@ -2,4 +2,4 @@
 
 ## Currently, developing the database schema
 
-### navigate to http://localhost:8080/api/order to view all the orders
+### navigate to http://localhost:8080/api/orders to view all the orders
