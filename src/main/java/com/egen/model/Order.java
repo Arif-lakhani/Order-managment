@@ -1,5 +1,4 @@
 package com.egen.model;
-
 public class Order {
     private  String id;
 
@@ -14,4 +13,5 @@ public class Order {
     public void setId(String id) {
         this.id = id;
     }
+
 }
