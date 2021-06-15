@@ -33,10 +33,13 @@ public class JPAConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/order_processing?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+
+		//ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		ds.setDriverClassName("org.postgresql.Driver");
+		//ds.setUrl("jdbc:mysql://localhost:3306/order_processing?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		ds.setUrl("jdbc:postgresql://localhost:5432/orderprocessing?useJDBCCompliantTimezoneShift=true");
+		ds.setUsername("postgres");
 		ds.setPassword("root");
-		ds.setUsername("root");
 		return ds;
 	}
 
@@ -48,7 +51,8 @@ public class JPAConfig {
 
 	private Properties jpaProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.dialect","org.hibernate.dialect.MySQL57Dialect");
+		properties.put("hibernate.dialect","org.hibernate.dialect.PostgreSQLDialect");
+		//properties.put("hibernate.dialect","org.hibernate.dialect.MySQL57Dialect");
 		properties.put("hibernate.hbm2ddl.auto", "create");
 		properties.put("hibernate.show_sql", "true");
 		return properties;
