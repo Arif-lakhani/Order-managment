@@ -1,50 +1,55 @@
 package com.egen.controller;
 
 import com.egen.model.Order;
+import com.egen.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
 @RestController
+@RequestMapping("order")
 public class OrderController {
-    /**
-     * implement the following endpoints
-     */
 
-    @GetMapping("order")
+    @Autowired
+    private OrderService service;
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Order>> getAllOrders(){
-        //TODO
-        return ResponseEntity.ok(Collections.singletonList(new Order()));
+        return ResponseEntity.ok(service.findAll());
     }
 
-    public ResponseEntity<List<Order>> getOrderById(String id){
-        //TODO
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Order> getOrderById(@PathVariable("id") String id){
+        return ResponseEntity.ok(service.findOne(id));
     }
 
-    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(ZonedDateTime startTime, ZonedDateTime endTime){
-        //TODO
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/{startTime}/{endTime}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(@PathVariable("startTime") ZonedDateTime startTime,@PathVariable("endTime") ZonedDateTime endTime){
+        return ResponseEntity.ok(service.findAllOrderWithInInterval(startTime, endTime));
     }
 
-    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(String zip){
-        //TODO
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/zip/{zip}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(@PathVariable("zip") String zip){
+        return ResponseEntity.ok(service.getTop10OrdersWithHighestDollarAmountInZip(zip));
     }
 
-    public ResponseEntity<Order> placeOrder(Order order){
-        return null;
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Order> placeOrder(@RequestBody Order order){
+        return ResponseEntity.ok(service.placeOrder(order));
     }
 
-    public ResponseEntity<Order> cancelOrder(Order order){
-        return null;
+    @RequestMapping(method = RequestMethod.DELETE, value = "/cancel/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Order> cancelOrder(@PathVariable("id") String id, @RequestBody Order order){
+        return ResponseEntity.ok(service.cancelOrder(id, order));
     }
 
-    public ResponseEntity<Order> updateOrder(Order order){
-        return null;
+    @RequestMapping(method = RequestMethod.PUT, value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Order> updateOrder(@PathVariable("id") String id, @RequestBody Order order){
+        return ResponseEntity.ok(service.updateOrder(id,order));
     }
 }

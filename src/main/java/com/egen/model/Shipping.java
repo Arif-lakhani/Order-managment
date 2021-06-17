@@ -2,27 +2,40 @@ package com.egen.model;
 
 import com.egen.model.enums.ShipmentType;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "Shipping")
 public class Shipping {
 
+    @Id
+    @Column(columnDefinition = "VARCHAR(36)")
     private String order_shipping_id;
-    private String order_id;
+
+    //private String order_id;
+
+    @Enumerated(EnumType.STRING)
     private ShipmentType order_shipment_type;
+
     private String order_status;
+
     private String order_shipping_addressline1;
+
     private String order_shipping_addressline2;
+
     private String order_shipping_city;
+
     private String order_shipping_state;
+
     private String order_shipping_zip;
 
     public Shipping(){
         this.order_shipping_id = UUID.randomUUID().toString();
     }
 
-    public Shipping(String order_shipping_id, String order_id, ShipmentType order_shipment_type, String order_status, String order_shipping_addressline1, String order_shipping_addressline2, String order_shipping_city, String order_shipping_state, String order_shipping_zip) {
+    public Shipping(String order_shipping_id, ShipmentType order_shipment_type, String order_status, String order_shipping_addressline1, String order_shipping_addressline2, String order_shipping_city, String order_shipping_state, String order_shipping_zip) {
         this.order_shipping_id = UUID.randomUUID().toString();
-        this.order_id = order_id;
         this.order_shipment_type = order_shipment_type;
         this.order_status = order_status;
         this.order_shipping_addressline1 = order_shipping_addressline1;
@@ -38,14 +51,6 @@ public class Shipping {
 
     public void setOrder_shipping_id(String order_shipping_id) {
         this.order_shipping_id = order_shipping_id;
-    }
-
-    public String getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
     }
 
     public ShipmentType getOrder_shipment_type() {

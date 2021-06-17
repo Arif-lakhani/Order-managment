@@ -2,24 +2,60 @@ package com.egen.model;
 
 import com.egen.model.enums.OrderStatus;
 
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "orders")
+@NamedQueries({
+                    @NamedQuery(name="Order.findAll",query = "SELECT order FROM Order order"),
+                    @NamedQuery(name="Order.findWithinInterVal",query = "SELECT order FROM Order order WHERE order.order_created>=:paramStartTime AND order.order_created<=:paramEndTime"),
+                    @NamedQuery(name="Order.findTop10OrdersWithHighestDollarAmountInZip",query = "SELECT order FROM Order order WHERE order.billing_address.order_billing_zip>=:paramZip ORDER BY order.order_total DESC")
+                })
+
 public class Order {
+    @Id
+    @Column(name = "order_id", columnDefinition = "VARCHAR(36)")
     private String order_id;
+
+    @Column(name = "order_status")
+    @Enumerated(EnumType.STRING)
     private OrderStatus order_status;
+
+    @Column(name = "customer_id")
     private String customer_id;
+
+    @Column(name = "order_total")
     private double order_total;
+
+    @Column(name = "order_subTotal")
     private double order_subTotal;
+
+    @Column(name = "shipping_charges")
     private double shipping_charges;
+
+    @Column(name = "order_tax")
     private double order_tax;
+
+    @OneToOne
     private Billing billing_address;
+
+    @OneToOne
     private Shipping shipping_address;
-    private List<OrderItem> orderItemList = new ArrayList<OrderItem>();
-    private List<Payment> paymentList = new ArrayList<Payment>();
+
+    @OneToMany
+    private List<OrderItem> orderItemList;
+
+    @OneToMany
+    private List<Payment> paymentList;
+
+    @Column(name = "order_created")
     private ZonedDateTime order_created;
+
+    @Column(name = "order_updated")
     private ZonedDateTime order_update;
 
     public Order(){
@@ -29,7 +65,7 @@ public class Order {
 
     public Order(String order_id, OrderStatus order_status, String customer_id, double order_total, double order_subTotal, double shipping_charges, double order_tax, Billing billing_address, Shipping shipping_address, List<OrderItem> orderItemList, List<Payment> paymentList, ZonedDateTime order_created, ZonedDateTime order_update) {
         this.order_id = UUID.randomUUID().toString();
-        this.order_status = order_status;
+        this.order_status = OrderStatus.ORDER_PENDING;;
         this.customer_id = customer_id;
         this.order_total = order_total;
         this.order_subTotal = order_subTotal;

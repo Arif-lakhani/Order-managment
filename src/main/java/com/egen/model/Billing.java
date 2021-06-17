@@ -1,15 +1,35 @@
 package com.egen.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table(name = "Billing")
 public class Billing {
 
+    @Id
+    @Column(name = "billing_id")
     private String billing_id;
+
+    @Column(name = "payment_id")
     private String payment_id;
+
+    @Column(name = "billing_addressline1")
     private String order_billing_addressline1;
+
+    @Column(name = "billing_addressline2")
     private String order_billing_addressline2;
+
+    @Column(name = "billing_city")
     private String order_billing_city;
+
+    @Column(name = "billing_state")
     private String order_billing_state;
+
+    @Column(name = "billing_zip")
     private String order_billing_zip;
 
     public Billing(){
