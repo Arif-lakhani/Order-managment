@@ -3,21 +3,33 @@ package com.egen.model;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.egen.enums.PaymentMethod;
 import com.egen.enums.PaymentProcessed;
 
+@Entity
 public class Payment {
 	
+	@Id
+	@Column
 	private String paymentId;
 	
+	@Column
 	private PaymentMethod paymentMethod;
 	
+	@Column
 	private String paymentConfirmationNumber;
 	
+	@Column
 	private PaymentProcessed paymentProcessed;
 	
+	@Column
 	private ZonedDateTime paymentMadeOn;
 	
+	@Column
 	private ZonedDateTime paymentCreatedOn;
 
 	public Payment(PaymentMethod paymentMethod, String paymentConfirmationNumber, PaymentProcessed paymentProcessed,

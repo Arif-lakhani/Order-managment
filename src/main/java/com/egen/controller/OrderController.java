@@ -1,53 +1,65 @@
 package com.egen.controller;
 
 import com.egen.model.Order;
+import com.egen.service.OrderService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 public class OrderController {
-    /**
-     * implement the following endpoints
-     */
+    
+	@Autowired
+	OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/order")
+    @ResponseBody
     public ResponseEntity<List<Order>> getAllOrders(){
-        //TODO
-        return ResponseEntity.ok(Collections.singletonList(new Order("id")));
+        List<Order> orderList = orderService.getAllOrder();
+        return ResponseEntity.ok(orderList);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/order/{id}")
-    public ResponseEntity<List<Order>> getOrderById(@PathVariable("id") String id){
-        //TODO
-        return null;
+    public ResponseEntity<Order> getOrderById(@PathVariable("id") String id){
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok(order);
     }
 
-    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(ZonedDateTime startTime, ZonedDateTime endTime){
-        //TODO
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/order/{startTime}/{endTime}")
+    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(@PathVariable("startTime") ZonedDateTime startTime, @PathVariable("endTime") ZonedDateTime endTime){
+        List<Order> orderList = orderService.getAllOrdersWithinInterval(startTime, endTime);
+        return ResponseEntity.ok(orderList);
     }
 
-    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(String zip){
-        //TODO
-        return null;
+    @RequestMapping(method = RequestMethod.GET, value = "/getTop10OrdersInZip/{zip}")
+    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(@PathVariable("zip") String zip){
+    	 List<Order> orderList = orderService.top10OrdersWithHighestDollarAmountInZip(zip);
+         return ResponseEntity.ok(orderList);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/placeOrder")
     public ResponseEntity<Order> placeOrder(Order order){
-        return null;
+        Order placedOrder = orderService.placeOrder(order);
+        return ResponseEntity.ok(placedOrder);
     }
-
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/cancelOrder")
     public ResponseEntity<Order> cancelOrder(Order order){
-        return null;
+        Order cancelledOrder = orderService.cancelOrder(order.getOrderId());
+    	return ResponseEntity.ok(cancelledOrder);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/updateOrder")
     public ResponseEntity<Order> updateOrder(Order order){
-        return null;
+        Order updatedOrder = orderService.updateOrder(order.getOrderId(), order);
+        return ResponseEntity.ok(updatedOrder);
     }
 }

@@ -4,58 +4,78 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.egen.enums.OrderStatus;
 
-
+@Entity
 public class Order {
     
+	@Id
+	@Column
 	private String orderId;
 	
+	@Column
 	private OrderStatus orderStatus;
 	
-	private String orderCustomerId;
+	@Column
+	private Customer orderCustomer;
 	
-	private List<String> orderItemIds;
+	@OneToMany
+	private List<Item> orderItems;
 	
+	@Column
 	private double orderSubtotal;
 	
+	@Column
 	private double orderTax;
 	
+	@Column
 	private double orderShippingCharges;
 	
+	@Column
 	private double orderTotal;
 	
-	private List<String> orderPaymentIds;
+	@OneToMany
+	private List<Payment> orderPayments;
 	
-	private String orderBillingId;
+	@Column
+	private Address orderBillingAddress;
 	
-	private String orderShippingId;
+	@Column
+	private Address orderShippingAddress;
 	
+	@Column
 	private ZonedDateTime orderCreatedOn;
 	
+	@Column
 	private ZonedDateTime orderModifiedOn;
 	
+	@Column
 	private ZonedDateTime orderCompletedOn;
 	
 	public Order(String id) {
 		this.orderId = id;
 	}
 
-	public Order(OrderStatus orderStatus, String orderCustomerId, List<String> orderItemIds, double orderSubtotal,
-			double orderTax, double orderShippingCharges, double orderTotal, List<String> orderPaymentIds,
-			String orderBillingId, String orderShippingId, ZonedDateTime orderCreatedOn,
+	public Order(OrderStatus orderStatus, Customer orderCustomer, List<Item> orderItems, double orderSubtotal,
+			double orderTax, double orderShippingCharges, double orderTotal, List<Payment> orderPayments,
+			Address orderBillingAddress, Address orderShippingAddress, ZonedDateTime orderCreatedOn,
 			ZonedDateTime orderModifiedOn, ZonedDateTime orderCompletedOn) {
 		this.orderId = UUID.randomUUID().toString();
 		this.orderStatus = orderStatus;
-		this.orderCustomerId = orderCustomerId;
-		this.orderItemIds = orderItemIds;
+		this.orderCustomer = orderCustomer;
+		this.orderItems = orderItems;
 		this.orderSubtotal = orderSubtotal;
 		this.orderTax = orderTax;
 		this.orderShippingCharges = orderShippingCharges;
 		this.orderTotal = orderTotal;
-		this.orderPaymentIds = orderPaymentIds;
-		this.orderBillingId = orderBillingId;
-		this.orderShippingId = orderShippingId;
+		this.orderPayments = orderPayments;
+		this.orderBillingAddress = orderBillingAddress;
+		this.orderShippingAddress = orderShippingAddress;
 		this.orderCreatedOn = orderCreatedOn;
 		this.orderModifiedOn = orderModifiedOn;
 		this.orderCompletedOn = orderCompletedOn;
@@ -77,20 +97,20 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	public String getOrderCustomerId() {
-		return orderCustomerId;
+	public Customer getOrderCustomer() {
+		return orderCustomer;
 	}
 
-	public void setOrderCustomerId(String orderCustomerId) {
-		this.orderCustomerId = orderCustomerId;
+	public void setOrderCustomer(Customer orderCustomer) {
+		this.orderCustomer = orderCustomer;
 	}
 
-	public List<String> getOrderItemIds() {
-		return orderItemIds;
+	public List<Item> getOrderItems() {
+		return orderItems;
 	}
 
-	public void setOrderItemIds(List<String> orderItemIds) {
-		this.orderItemIds = orderItemIds;
+	public void setOrderItems(List<Item> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	public double getOrderSubtotal() {
@@ -125,61 +145,61 @@ public class Order {
 		this.orderTotal = orderTotal;
 	}
 
-	public List<String> getOrderPaymentIds() {
-		return orderPaymentIds;
+	public List<Payment> getOrderPayments() {
+		return orderPayments;
 	}
 
-	public void setOrderPaymentIds(List<String> orderPaymentIds) {
-		this.orderPaymentIds = orderPaymentIds;
+	public void setOrderPayments(List<Payment> orderPayments) {
+		this.orderPayments = orderPayments;
 	}
 
-	public String getOrderBillingId() {
-		return orderBillingId;
+	public Address getOrderBillingAddress() {
+		return orderBillingAddress;
 	}
 
-	public void setOrderBillingId(String orderBillingId) {
-		this.orderBillingId = orderBillingId;
+	public void setOrderBillingAddress(Address orderBillingAddress) {
+		this.orderBillingAddress = orderBillingAddress;
 	}
 
-	public String getOrderShippingId() {
-		return orderShippingId;
+	public Address getOrderShippingAddress() {
+		return orderShippingAddress;
 	}
 
-	public void setOrderShippingId(String orderShippingId) {
-		this.orderShippingId = orderShippingId;
+	public void setOrderShippingAddress(Address orderShippingAddress) {
+		this.orderShippingAddress = orderShippingAddress;
 	}
 
-	public ZonedDateTime getOrderCreateDate() {
+	public ZonedDateTime getOrderCreatedOn() {
 		return orderCreatedOn;
 	}
 
-	public void setOrderCreateDate(ZonedDateTime orderCreatedOn) {
+	public void setOrderCreatedOn(ZonedDateTime orderCreatedOn) {
 		this.orderCreatedOn = orderCreatedOn;
 	}
 
-	public ZonedDateTime getOrderModifiedDate() {
+	public ZonedDateTime getOrderModifiedOn() {
 		return orderModifiedOn;
 	}
 
-	public void setOrderModifiedDate(ZonedDateTime orderModifiedOn) {
+	public void setOrderModifiedOn(ZonedDateTime orderModifiedOn) {
 		this.orderModifiedOn = orderModifiedOn;
 	}
 
-	public ZonedDateTime getOrderCompletedDate() {
+	public ZonedDateTime getOrderCompletedOn() {
 		return orderCompletedOn;
 	}
 
-	public void setOrderCompletedDate(ZonedDateTime orderCompletedOn) {
+	public void setOrderCompletedOn(ZonedDateTime orderCompletedOn) {
 		this.orderCompletedOn = orderCompletedOn;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", orderStatus=" + orderStatus + ", orderCustomerId=" + orderCustomerId
-				+ ", orderItemIds=" + orderItemIds + ", orderSubtotal=" + orderSubtotal + ", orderTax=" + orderTax
-				+ ", orderShippingCharges=" + orderShippingCharges + ", orderTotal=" + orderTotal + ", orderPaymentIds="
-				+ orderPaymentIds + ", orderBillingId=" + orderBillingId + ", orderShippingId=" + orderShippingId
-				+ ", orderCreatedOn=" + orderCreatedOn + ", orderModifiedOn=" + orderModifiedOn
+		return "Order [orderId=" + orderId + ", orderStatus=" + orderStatus + ", orderCustomer=" + orderCustomer
+				+ ", orderItems=" + orderItems + ", orderSubtotal=" + orderSubtotal + ", orderTax=" + orderTax
+				+ ", orderShippingCharges=" + orderShippingCharges + ", orderTotal=" + orderTotal + ", orderPayments="
+				+ orderPayments + ", orderBillingAddress=" + orderBillingAddress + ", orderShippingAddress="
+				+ orderShippingAddress + ", orderCreatedOn=" + orderCreatedOn + ", orderModifiedOn=" + orderModifiedOn
 				+ ", orderCompletedOn=" + orderCompletedOn + "]";
 	}
 	

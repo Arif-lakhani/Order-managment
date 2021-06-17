@@ -3,20 +3,33 @@ package com.egen.model;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Item {
 	
+	@Id
+	@Column
 	private String itemId;
 	
+	@Column
 	private String itemName;
 	
+	@Column
 	private String itemQty;
 	
+	@Column
 	private double itemUnitPrice;
 	
+	@Column
 	private double itemTotal;
 	
+	@Column
 	private ZonedDateTime itemCreatedOn;
 	
+	@Column
 	private ZonedDateTime itemModifiedOn;
 
 	public Item(String itemName, String itemQty, double itemUnitPrice, double itemTotal, ZonedDateTime itemCreatedOn,

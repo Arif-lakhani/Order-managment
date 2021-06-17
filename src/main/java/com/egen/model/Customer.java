@@ -4,41 +4,53 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.egen.enums.Gender;
 
+@Entity
 public class Customer {
 	
+	@Id
+	@Column
 	private String customerId;
 	
+	@Column
 	private String customerFirstName;
 	
+	@Column
 	private String customerLastName;
 	
+	@Column
 	private Gender customerGender;
 	
+	@Column
 	private String customerEmail;
 	
+	@Column
 	private String customerPhoneNumber;
 	
-	private List<String> customerBillingIds;
+	@Column
+	private List<Address> customerAddress;
 	
-	private List<String> customerShippingIds;
-	
+	@Column
 	private ZonedDateTime customerCreatedOn;
 	
+	@Column
 	private ZonedDateTime customerModifiedOn;
 
 	public Customer(String customerFirstName, String customerLastName, Gender customerGender, String customerEmail,
-			String customerPhoneNumber, List<String> customerBillingIds, List<String> customerShippingIds,
-			ZonedDateTime customerCreatedOn, ZonedDateTime customerModifiedOn) {
+			String customerPhoneNumber, List<Address> customerAddress, ZonedDateTime customerCreatedOn,
+			ZonedDateTime customerModifiedOn) {
 		this.customerId = UUID.randomUUID().toString();
 		this.customerFirstName = customerFirstName;
 		this.customerLastName = customerLastName;
 		this.customerGender = customerGender;
 		this.customerEmail = customerEmail;
 		this.customerPhoneNumber = customerPhoneNumber;
-		this.customerBillingIds = customerBillingIds;
-		this.customerShippingIds = customerShippingIds;
+		this.customerAddress = customerAddress;
 		this.customerCreatedOn = customerCreatedOn;
 		this.customerModifiedOn = customerModifiedOn;
 	}
@@ -91,20 +103,12 @@ public class Customer {
 		this.customerPhoneNumber = customerPhoneNumber;
 	}
 
-	public List<String> getCustomerBillingIds() {
-		return customerBillingIds;
+	public List<Address> getCustomerAddress() {
+		return customerAddress;
 	}
 
-	public void setCustomerBillingIds(List<String> customerBillingIds) {
-		this.customerBillingIds = customerBillingIds;
-	}
-
-	public List<String> getCustomerShippingIds() {
-		return customerShippingIds;
-	}
-
-	public void setCustomerShippingIds(List<String> customerShippingIds) {
-		this.customerShippingIds = customerShippingIds;
+	public void setCustomerAddress(List<Address> customerAddress) {
+		this.customerAddress = customerAddress;
 	}
 
 	public ZonedDateTime getCustomerCreatedOn() {
@@ -127,9 +131,8 @@ public class Customer {
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerFirstName=" + customerFirstName + ", customerLastName="
 				+ customerLastName + ", customerGender=" + customerGender + ", customerEmail=" + customerEmail
-				+ ", customerPhoneNumber=" + customerPhoneNumber + ", customerBillingIds=" + customerBillingIds
-				+ ", customerShippingIds=" + customerShippingIds + ", customerCreatedOn=" + customerCreatedOn
-				+ ", customerModifiedOn=" + customerModifiedOn + "]";
+				+ ", customerPhoneNumber=" + customerPhoneNumber + ", customerAddress=" + customerAddress
+				+ ", customerCreatedOn=" + customerCreatedOn + ", customerModifiedOn=" + customerModifiedOn + "]";
 	}
 
 }
