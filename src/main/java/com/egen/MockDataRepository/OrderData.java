@@ -71,4 +71,22 @@ public class OrderData {
         return this.orderList.stream().filter(order -> order.getCreated_date().hashCode() >= startTime.hashCode() &&
                 order.getCreated_date().hashCode() < endTime.hashCode()).collect(Collectors.toList());
     }
+
+    public OrderStatus cancelOrder(String id){
+        for(Order order : orderList){
+            if(order.getId().equals(id)){
+                return OrderStatus.CANCELLED;
+            }
+        }
+        return null;
+    }
+
+    public OrderStatus updateOrder(String id){
+        for(Order order : orderList){
+            if(order.getId().equals(id)){
+                return OrderStatus.MODIFIED;
+            }
+        }
+        return null;
+    }
 }

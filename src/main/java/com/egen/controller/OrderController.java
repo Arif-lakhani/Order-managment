@@ -2,11 +2,9 @@ package com.egen.controller;
 
 import com.egen.MockDataRepository.OrderData;
 import com.egen.model.Order;
+import com.egen.model.OrderStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -48,15 +46,18 @@ public class OrderController {
         return ResponseEntity.ok(this.orderDataMock.getOrders());
     }
 
-    public ResponseEntity<Order> placeOrder(Order order){
-        return null;
+    @PostMapping(value = "/order")
+    public void placeOrder(@RequestBody List<Order> order){
+        this.orderDataMock.setOrders(order);
     }
 
-    public ResponseEntity<Order> cancelOrder(Order order){
-        return null;
+    @PutMapping(value = "/order/{id}")
+    public ResponseEntity<OrderStatus> cancelOrder(@PathVariable(name ="id") String id){
+        return ResponseEntity.ok(this.orderDataMock.cancelOrder(id));
     }
 
-    public ResponseEntity<Order> updateOrder(Order order){
-        return null;
+    @PutMapping(value = "/order/{id}")
+    public ResponseEntity<OrderStatus> updateOrder(@PathVariable(name = "id") String id){
+        return ResponseEntity.ok(this.orderDataMock.updateOrder(id));
     }
 }
