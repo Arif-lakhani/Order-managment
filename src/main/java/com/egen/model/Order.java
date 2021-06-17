@@ -2,6 +2,8 @@ package com.egen.model;
 
 import com.egen.enums.DeliveryMethod;
 import com.egen.enums.OrderStatus;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.UUID;
                 "WHERE Address.zip =: paramzip ORDER BY ord.total")
 
 })
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Order {
 
     @Id
@@ -61,31 +64,27 @@ public class Order {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Order(String id){
-        this.id = UUID.randomUUID().toString();
+    public String getId() {
+        return id;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public Address getShippingAddress() {
+    public Address getShippingAddressId() {
         return shippingAddressId;
     }
 
-    public void setShippingAddress(Address shippingAddressId) {
+    public void setShippingAddressId(Address shippingAddressId) {
         this.shippingAddressId = shippingAddressId;
     }
 
-    public Address getBillingAddress() {
+    public Address getBillingAddressId() {
         return billingAddressId;
     }
 
-    public void setBillingAddress(Address billingAddressId) {
+    public void setBillingAddressId(Address billingAddressId) {
         this.billingAddressId = billingAddressId;
     }
 
@@ -105,13 +104,12 @@ public class Order {
         this.payment = payment;
     }
 
-
-    public String getId() {
-        return id;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public Date getCreadtedDate() {
@@ -136,14 +134,6 @@ public class Order {
 
     public void setOrderDeliveredDate(Date orderDeliveredDate) {
         this.orderDeliveredDate = orderDeliveredDate;
-    }
-
-    public DeliveryMethod getOrderDeliveryMethod() {
-        return orderDeliveryMethod;
-    }
-
-    public void setOrderDeliveryMethod(DeliveryMethod orderDeliveryMethod) {
-        this.orderDeliveryMethod = orderDeliveryMethod;
     }
 
     public OrderStatus getOrderStatus() {
@@ -186,4 +176,11 @@ public class Order {
         this.total = total;
     }
 
+    public DeliveryMethod getOrderDeliveryMethod() {
+        return orderDeliveryMethod;
+    }
+
+    public void setOrderDeliveryMethod(DeliveryMethod orderDeliveryMethod) {
+        this.orderDeliveryMethod = orderDeliveryMethod;
+    }
 }

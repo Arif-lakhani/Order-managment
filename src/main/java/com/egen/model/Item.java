@@ -1,5 +1,8 @@
 package com.egen.model;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -9,6 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "ITEM")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Item {
 
     @Id
@@ -22,14 +26,6 @@ public class Item {
 
     public Item() {
         this.id = UUID.randomUUID().toString();
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public String getId() {
@@ -54,5 +50,13 @@ public class Item {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

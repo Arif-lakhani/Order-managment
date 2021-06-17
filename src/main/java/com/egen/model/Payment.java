@@ -1,6 +1,8 @@
 package com.egen.model;
 
 import com.egen.enums.PaymentMethod;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "PAYMENT")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Payment {
 
     @Id
@@ -27,22 +30,6 @@ public class Payment {
 
     public Payment() {
         this.id = UUID.randomUUID().toString();
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public String getId() {
@@ -69,11 +56,19 @@ public class Payment {
         this.amount = amount;
     }
 
-    public PaymentMethod getMethod() {
+    public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setMethod(PaymentMethod paymentMethod) {
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

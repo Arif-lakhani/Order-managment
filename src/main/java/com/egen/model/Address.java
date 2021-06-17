@@ -1,11 +1,15 @@
 package com.egen.model;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name="ADDRESS")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Address {
 
     @Id
