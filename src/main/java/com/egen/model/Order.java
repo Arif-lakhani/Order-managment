@@ -1,5 +1,8 @@
 package com.egen.model;
 
+import com.egen.enums.DeliveryMethod;
+import com.egen.enums.OrderStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +10,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "ORDER")
+@NamedQueries({
+        @NamedQuery(name="Order.getAllOrders", query = "SELECT ord FROM Order ord"),
+        @NamedQuery(name="Order.getOrderById", query = "SELECT ord FROM Order ord WHERE ord.id =:paramId"),
+        @NamedQuery(name="Order.getAllOrdersWithInInterval", query = "SELECT ord FROM Order ord WHERE ord.creadtedDate BETWEEN :paramstart AND :paramend"),
+        @NamedQuery(name ="Order.top10OrdersWithHighestDollarAmountInZip", query = "SELECT ord FROM Order ord JOIN Address ON ord.shippingAddressId = Address.id " +
+                "WHERE Address.zip =: paramzip ORDER BY ord.total")
+
+})
 public class Order {
 
     @Id
@@ -14,10 +25,10 @@ public class Order {
     private  String id;
 
     @ManyToOne
-    private Address shippingAddress;
+    private Address shippingAddressId;
 
     @ManyToOne
-    private Address billingAddress;
+    private Address billingAddressId;
 
     @ManyToOne
     private Customer customer;
@@ -28,10 +39,13 @@ public class Order {
     @OneToMany
     private List<OrderItem> orderItems;
 
-    private Date creadtedDate = new Date();
-    private Date modifiedDate = new Date();
+    private Date creadtedDate;
 
-    private Status status;
+    private Date modifiedDate;
+
+    private Date orderDeliveredDate;
+
+    private OrderStatus orderStatus;
 
     private int subTotal;
 
@@ -40,6 +54,8 @@ public class Order {
     private int shipping_Charges;
 
     private int total;
+
+    private DeliveryMethod orderDeliveryMethod;
 
     public Order() {
         this.id = UUID.randomUUID().toString();
@@ -58,19 +74,19 @@ public class Order {
     }
 
     public Address getShippingAddress() {
-        return shippingAddress;
+        return shippingAddressId;
     }
 
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setShippingAddress(Address shippingAddressId) {
+        this.shippingAddressId = shippingAddressId;
     }
 
     public Address getBillingAddress() {
-        return billingAddress;
+        return billingAddressId;
     }
 
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
+    public void setBillingAddress(Address billingAddressId) {
+        this.billingAddressId = billingAddressId;
     }
 
     public Customer getCustomer() {
@@ -114,12 +130,28 @@ public class Order {
         this.modifiedDate = modifiedDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public Date getOrderDeliveredDate() {
+        return orderDeliveredDate;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setOrderDeliveredDate(Date orderDeliveredDate) {
+        this.orderDeliveredDate = orderDeliveredDate;
+    }
+
+    public DeliveryMethod getOrderDeliveryMethod() {
+        return orderDeliveryMethod;
+    }
+
+    public void setOrderDeliveryMethod(DeliveryMethod orderDeliveryMethod) {
+        this.orderDeliveryMethod = orderDeliveryMethod;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public int getSubTotal() {

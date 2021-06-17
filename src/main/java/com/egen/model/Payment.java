@@ -1,5 +1,7 @@
 package com.egen.model;
 
+import com.egen.enums.PaymentMethod;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -18,7 +20,7 @@ public class Payment {
 
     private int amount;
 
-    private Method paymentMethod;
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     private Order order;
@@ -27,11 +29,11 @@ public class Payment {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Method getPaymentMethod() {
+    public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(Method paymentMethod) {
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -67,11 +69,11 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Method getMethod() {
+    public PaymentMethod getMethod() {
         return paymentMethod;
     }
 
-    public void setMethod(Method paymentMethod) {
+    public void setMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 }
