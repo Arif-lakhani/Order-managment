@@ -7,7 +7,7 @@ import java.util.List;
 public class Order {
 
     private String id;
-    private String status;
+    private OrderStatus status;
     private String order_customer_id;
     private List<Product> products;
     private double order_subtotal;
@@ -20,6 +20,21 @@ public class Order {
     private Address order_billing_address;
     private Address order_shipping_address;
 
+    public Order(OrderStatus status, String order_customer_id, List<Product> products, List<Payment> payment, Shipping shipping,
+                 ZonedDateTime created_date, ZonedDateTime modified_date, Address order_billing_address, Address order_shipping_address) {
+        this.status = status;
+        this.order_customer_id = order_customer_id;
+        this.products = products;
+        this.order_subtotal = this.products.stream().reduce(0.0, (sum, product) -> sum + product.getSubTotalWithoutTax(), Double::sum);
+        this.order_tax = this.products.stream().reduce(0.0, (sum, product) -> sum + product.getSubtotalTax(), Double::sum);
+        this.payment = payment;
+        this.shipping = shipping;
+        this.created_date = created_date;
+        this.modified_date = modified_date;
+        this.order_total = this.order_subtotal + this.order_tax + this.shipping.getShippingCharge();
+        this.order_billing_address = order_billing_address;
+        this.order_shipping_address = order_shipping_address;
+    }
     public Order(String id){
         this.id = id;
     }
@@ -32,21 +47,7 @@ public class Order {
         this.id = id;
     }
 
-    public Order(String status, String order_customer_id, List<Product> products, List<Payment> payment, Shipping shipping,
-                 Address order_billing_address, Address order_shipping_address) {
-        this.status = status;
-        this.order_customer_id = order_customer_id;
-        this.products = products;
-        this.order_subtotal = this.products.stream().reduce(0.0, (sum, product) -> sum + product.getSubTotalWithoutTax(), Double::sum);
-        this.order_tax = this.products.stream().reduce(0.0, (sum, product) -> sum + product.getSubtotalTax(), Double::sum);
-        this.payment = payment;
-        this.shipping = shipping;
-        this.order_total = this.order_subtotal + this.order_tax + this.shipping.getShippingCharge();
-        this.order_billing_address = order_billing_address;
-        this.order_shipping_address = order_shipping_address;
-    }
-
-    public String getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return status;
     }
 

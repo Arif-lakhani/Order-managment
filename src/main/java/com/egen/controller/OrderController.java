@@ -1,8 +1,12 @@
 package com.egen.controller;
 
+import com.egen.MockData.OrderData;
 import com.egen.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
@@ -15,25 +19,35 @@ public class OrderController {
      * implement the following endpoints
      */
 
-    @GetMapping("order")
+    OrderData orderDataMock;
+
+    public OrderController (OrderData orderDataMock){
+        this.orderDataMock = orderDataMock;
+    }
+
+    @GetMapping("/order")
     public ResponseEntity<List<Order>> getAllOrders(){
         //TODO
-        return ResponseEntity.ok(Collections.singletonList(new Order("id")));
+        return ResponseEntity.ok(this.orderDataMock.getOrders());
     }
 
-    public ResponseEntity<List<Order>> getOrderById(String id){
+    @GetMapping("/order/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable(name = "id") String id){
         //TODO
-        return null;
+        return ResponseEntity.ok(this.orderDataMock.getOrderById(id));
     }
 
-    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(ZonedDateTime startTime, ZonedDateTime endTime){
+    @GetMapping(value = "/order", params = { "startTime", "endTime" })
+    public ResponseEntity<List<Order>> getAllOrdersWithInInterval(@RequestParam(name = "startTime") ZonedDateTime startTime,
+                                                                  @RequestParam(name = "endTime") ZonedDateTime endTime){
         //TODO
-        return null;
+        return ResponseEntity.ok(this.orderDataMock.getOrdersWithTimeInterval(startTime, endTime));
     }
 
-    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(String zip){
+    @GetMapping(value = "/order", params = {"zip"})
+    public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(@RequestParam(name = "zip") String zip){
         //TODO
-        return null;
+        return ResponseEntity.ok(this.orderDataMock.getOrders());
     }
 
     public ResponseEntity<Order> placeOrder(Order order){
