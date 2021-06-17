@@ -1,5 +1,6 @@
 package com.egen.repository;
 
+import com.egen.enums.OrderStatus;
 import com.egen.model.Orders;
 import org.springframework.stereotype.Repository;
 
@@ -67,7 +68,10 @@ public class OrdersRepoImpl implements OrdersRepo{
         return orders;
     }
 
-    public Orders updateOrder(Orders orders) {
-        return null;
+    public Orders updateOrder(Long id) {
+        Orders updateOrder = findOne(id);
+        updateOrder.setOrderStatus(OrderStatus.DELIVERED);
+        em.merge(updateOrder);
+        return updateOrder;
     }
 }

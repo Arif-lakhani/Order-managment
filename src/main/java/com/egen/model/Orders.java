@@ -6,9 +6,7 @@ import com.egen.enums.ShipmentMethod;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @NamedQueries({
@@ -22,7 +20,7 @@ public class Orders {
     private  Long id;
 
     @Column(name = "customer_id")
-    private String customerId;
+    private Long customerId;
 
     @Column(name="date_ordered")
     private Timestamp dateOrdered;
@@ -65,6 +63,22 @@ public class Orders {
     public Orders() {
     }
 
+    public Orders(Long customerId, Timestamp dateOrdered, Timestamp expectedDelivery, int itemQuantity,
+                  double subTotal, double tax, double shippingCharges, double total,
+                  OrderStatus orderStatus, ShipmentMethod shipmentMethod, Address shippingAddress) {
+        this.customerId = customerId;
+        this.dateOrdered = dateOrdered;
+        this.expectedDelivery = expectedDelivery;
+        this.itemQuantity = itemQuantity;
+        this.subTotal = subTotal;
+        this.tax = tax;
+        this.shippingCharges = shippingCharges;
+        this.total = total;
+        this.orderStatus = orderStatus;
+        this.shipmentMethod = shipmentMethod;
+        this.shippingAddress = shippingAddress;
+    }
+
     public Long getId() {
         return id;
     }
@@ -73,11 +87,11 @@ public class Orders {
         this.id = id;
     }
 
-    public String getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 

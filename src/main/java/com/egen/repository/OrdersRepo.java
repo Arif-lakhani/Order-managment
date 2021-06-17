@@ -12,5 +12,5 @@ public interface OrdersRepo {
     List<Orders> findTop10OrdersWithHighestDollarAmountInZip(String zip);
     Orders createOrder(Orders orders);
     Orders cancelOrder(Orders orders,Long id);
-    Orders updateOrder(Orders orders);
+    Orders updateOrder(Long id);
 }

@@ -62,10 +62,11 @@ public class OrderController {
         return ordersService.findTop10OrdersWithHighestDollarAmountInZip(zip);
     }
 
-    @RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+    @RequestMapping(method = RequestMethod.POST,value = "/placeOrder",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void placeOrder(@RequestBody InputData inputData){
         System.out.println(inputData.toString());
+        ordersService.createOrder(inputData);
     }
 
     /**
@@ -82,10 +83,13 @@ public class OrderController {
 
     /**
      * Updates the selected order by changing the values desired
-     * @param order
+     * Currently this method is used to change the order status to delivered
+     * @param id - order id
      * @return
      */
-    public ResponseEntity<Orders> updateOrder(Orders order){
-        return null;
+    @RequestMapping(method = RequestMethod.PUT,value = "/delivered/{id}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Orders updateOrder(@PathVariable("id")Long id){
+        return ordersService.updateOrder(id);
     }
 }

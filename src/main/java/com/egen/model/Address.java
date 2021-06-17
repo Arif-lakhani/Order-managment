@@ -9,10 +9,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="address_line_1")
+    @Column(name="address_line_1",unique = true)
     private String addressLine1;
 
-    @Column(name="address_line_2")
+    @Column(name="address_line_2",unique = true)
     private String addressLine2;
 
     @Column(name="city")

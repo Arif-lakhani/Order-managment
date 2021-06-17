@@ -2,30 +2,39 @@ package com.egen.util;
 
 import com.egen.enums.ShipmentMethod;
 import com.egen.model.Address;
-import com.egen.model.Item;
 import com.egen.model.Payment;
 
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class is used to fetch the input Json object and create a new order
+ */
 public class InputData {
 
     private Long customer_id;
-    private List<Item> items;
+    private int[] items;
     private Address shippingAddress;
     private Address billingAddress;
+    private boolean billingSameAsShippingAddress;
     private List<Payment> payments;
     private ShipmentMethod shipmentMethod;
+    private int itemQuantity;
 
     public InputData() {
     }
 
-    public InputData(Long customer_id, List<Item> items, Address shippingAddress, Address billingAddress, List<Payment> payments, ShipmentMethod shipmentMethod) {
+    public InputData(Long customer_id, int[] items, Address shippingAddress, Address billingAddress,
+                     boolean billingSameAsShippingAddress, List<Payment> payments, ShipmentMethod shipmentMethod,
+                     int itemQuantity) {
         this.customer_id = customer_id;
         this.items = items;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
+        this.billingSameAsShippingAddress = billingSameAsShippingAddress;
         this.payments = payments;
         this.shipmentMethod = shipmentMethod;
+        this.itemQuantity = itemQuantity;
     }
 
     public Long getCustomer_id() {
@@ -36,13 +45,9 @@ public class InputData {
         this.customer_id = customer_id;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
+    public int[] getItems() { return items; }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
+    public void setItems(int[] items) { this.items = items; }
 
     public Address getShippingAddress() {
         return shippingAddress;
@@ -76,15 +81,33 @@ public class InputData {
         this.shipmentMethod = shipmentMethod;
     }
 
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public boolean isBillingSameAsShippingAddress() {
+        return billingSameAsShippingAddress;
+    }
+
+    public void setBillingSameAsShippingAddress(boolean billingSameAsShippingAddress) {
+        this.billingSameAsShippingAddress = billingSameAsShippingAddress;
+    }
+
     @Override
     public String toString() {
         return "InputData{" +
                 "customer_id=" + customer_id +
-                ", items=" + items +
+                ", items=" + Arrays.toString(items) +
                 ", shippingAddress=" + shippingAddress +
                 ", billingAddress=" + billingAddress +
+                ", billingSameAsShippingAddress=" + billingSameAsShippingAddress +
                 ", payments=" + payments +
                 ", shipmentMethod=" + shipmentMethod +
+                ", itemQuantity=" + itemQuantity +
                 '}';
     }
 }
