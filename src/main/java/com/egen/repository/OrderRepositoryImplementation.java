@@ -43,6 +43,8 @@ public class OrderRepositoryImplementation implements OrderRepository{
 
     @Override
     public Order placeOrder(Order order) {
+        order.setCreadtedDate(new Date());
+        order.setModifiedDate(new Date());
         entityManager.persist(order);
         return order;
     }
@@ -60,6 +62,7 @@ public class OrderRepositoryImplementation implements OrderRepository{
     public Order updateOrder(Order order, String id) {
         List<Order> updateOrderList = getOrderById(id);
         Order updateOrder = updateOrderList.get(0);
+        order.setModifiedDate(new Date());
         entityManager.merge(updateOrder);
         return updateOrder;
     }

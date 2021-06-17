@@ -55,7 +55,7 @@ public class OrderServiceImplementation implements OrderService{
     @Override
     @Transactional
     public Order placeOrder(Order order) {
-        return null;
+        return orderRepository.placeOrder(order);
     }
 
     @Override
