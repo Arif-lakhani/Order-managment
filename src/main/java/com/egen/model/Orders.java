@@ -1,66 +1,84 @@
 package com.egen.model;
 
+import com.egen.enums.OrderStatus;
+import com.egen.enums.ShipmentMethod;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Orders.findAll",query = "SELECT ord from Orders ord"),
+        @NamedQuery(name = "Orders.findOne",query = "SELECT ord from Orders ord WHERE ord.id=:paramOrderId")
+})
 public class Orders {
 
     @Id
-    @Column(name = "order_id",nullable = false)
-    private  String orderId;
-    private String id;
-    private Timestamp dateOrdered;
-    private Timestamp shipDate;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  Long id;
 
-    @ManyToOne(cascade= {CascadeType.ALL})
-    @JoinColumn(name="order_id",insertable = false,updatable = false)
-    private Customer customer;
+    @Column(name = "customer_id")
+    private String customerId;
+
+    @Column(name="date_ordered")
+    private Timestamp dateOrdered;
+
+    @Column(name = "expected_delivery")
+    private Timestamp expectedDelivery;
+
+    @Column(name = "item_quantity")
+    private int itemQuantity;
+
+    @Column(name="sub_total")
+    private double subTotal;
+
+    @Column(name = "tax")
+    private double tax;
+
+    @Column(name="shipping_charges")
+    private double shippingCharges;
+
+    @Column(name = "total")
+    private double total;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    @Column(name="shipment_method")
+    @Enumerated(EnumType.STRING)
+    private ShipmentMethod shipmentMethod;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="order_id")
-    private Shipment shipment;
+    @JoinColumn(name = "ship_id")
+    private Address shippingAddress;
 
+    @OneToMany(mappedBy = "orders",targetEntity = Item.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Item> items = new HashSet<Item>();
 
-    public Orders() { this.orderId = UUID.randomUUID().toString();}
+    @OneToMany(mappedBy = "orders",targetEntity = Payment.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Payment> paymentDetails = new HashSet<Payment>();
 
-    public Orders(String id) {
-        this.id = id;
+    public Orders() {
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Shipment getShipmentId() {
-        return shipment;
-    }
-
-    public void setShipmentId(Shipment shipmentId) {
-        this.shipment = shipmentId;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public Timestamp getDateOrdered() {
@@ -71,23 +89,111 @@ public class Orders {
         this.dateOrdered = dateOrdered;
     }
 
-    public Timestamp getShipDate() {
-        return shipDate;
+    public Timestamp getExpectedDelivery() {
+        return expectedDelivery;
     }
 
-    public void setShipDate(Timestamp shipDate) {
-        this.shipDate = shipDate;
+    public void setExpectedDelivery(Timestamp expectedDelivery) {
+        this.expectedDelivery = expectedDelivery;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public double getShippingCharges() {
+        return shippingCharges;
+    }
+
+    public void setShippingCharges(double shippingCharges) {
+        this.shippingCharges = shippingCharges;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public ShipmentMethod getShipmentMethod() {
+        return shipmentMethod;
+    }
+
+    public void setShipmentMethod(ShipmentMethod shipmentMethod) {
+        this.shipmentMethod = shipmentMethod;
+    }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public Set<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Item> items) {
+        this.items = items;
+    }
+
+    public Set<Payment> getPaymentDetails() {
+        return paymentDetails;
+    }
+
+    public void setPaymentDetails(Set<Payment> paymentDetails) {
+        this.paymentDetails = paymentDetails;
     }
 
     @Override
     public String toString() {
         return "Orders{" +
-                "orderId='" + orderId + '\'' +
-                ", id='" + id + '\'' +
+                "id=" + id +
+                ", customerId='" + customerId + '\'' +
                 ", dateOrdered=" + dateOrdered +
-                ", shipDate=" + shipDate +
-                ", customer=" + customer +
-                ", shipmentId=" + shipment +
+                ", expectedDelivery=" + expectedDelivery +
+                ", itemQuantity=" + itemQuantity +
+                ", subTotal=" + subTotal +
+                ", tax=" + tax +
+                ", shippingCharges=" + shippingCharges +
+                ", total=" + total +
+                ", orderStatus=" + orderStatus +
+                ", shipmentMethod=" + shipmentMethod +
+                ", shippingAddress=" + shippingAddress +
+                ", items=" + items +
+                ", paymentDetails=" + paymentDetails +
                 '}';
     }
 }

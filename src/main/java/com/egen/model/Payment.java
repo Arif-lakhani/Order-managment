@@ -1,5 +1,7 @@
 package com.egen.model;
 
+import com.egen.enums.PaymentMethod;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -8,35 +10,35 @@ import java.util.UUID;
 public class Payment {
 
     @Id
-    @Column(name = "payment_id")
-    private String paymentConfirmationId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "amount_paid")
     private double amount;
+
+    @Column(name = "payment_date")
     private Timestamp paymentDate;
-    private String billingAddressLine1;
-    private String billingAddrressLine2;
-    private String city;
-    private String state;
-    private String country;
-    private String zipCode;
 
-    @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="payment_id")
-    private Customer customer;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_mode")
+    private PaymentMethod paymentMode;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id",insertable = false,updatable = false)
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Address billingAddress;
+
+    @ManyToOne()
+    @JoinColumn(name = "order_id")
     private Orders orders;
 
     public Payment() {
-        this.paymentConfirmationId = UUID.randomUUID().toString();
     }
 
-    public String getPaymentConfirmationId() {
-        return paymentConfirmationId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPaymentConfirmationId(String paymentConfirmationId) {
-        this.paymentConfirmationId = paymentConfirmationId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getAmount() {
@@ -47,7 +49,6 @@ public class Payment {
         this.amount = amount;
     }
 
-
     public Timestamp getPaymentDate() {
         return paymentDate;
     }
@@ -56,83 +57,38 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public String getBillingAddressLine1() {
-        return billingAddressLine1;
+    public PaymentMethod getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setBillingAddressLine1(String billingAddressLine1) {
-        this.billingAddressLine1 = billingAddressLine1;
+    public void setPaymentMode(PaymentMethod paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
-    public String getBillingAddrressLine2() {
-        return billingAddrressLine2;
+    public Address getBillingAddress() {
+        return billingAddress;
     }
 
-    public void setBillingAddrressLine2(String billingAddrressLine2) {
-        this.billingAddrressLine2 = billingAddrressLine2;
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
-    public Orders getOrders() {
-        return orders;
-    }
+//    public Orders getOrders() {
+//        return orders;
+//    }
 
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     @Override
     public String toString() {
         return "Payment{" +
-                "paymentConfirmationId='" + paymentConfirmationId + '\'' +
+                "id=" + id +
                 ", amount=" + amount +
                 ", paymentDate=" + paymentDate +
-                ", billingAddressLine1='" + billingAddressLine1 + '\'' +
-                ", billingAddrressLine2='" + billingAddrressLine2 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", customer=" + customer +
+                ", paymentMode=" + paymentMode +
+                ", billingAddress=" + billingAddress +
                 ", orders=" + orders +
                 '}';
     }

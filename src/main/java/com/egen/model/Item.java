@@ -1,31 +1,36 @@
 package com.egen.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 public class Item {
 
     @Id
-    @Column(name="item_id",nullable = false)
-    private String itemId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name="item_name")
     private String itemName;
+
+    @Column(name="item_price")
     private double itemPrice;
-    private int itemsInStock;
+
+    @Column(name = "quantity_in_stock")
+    private int quantityInStock;
+
+    @ManyToOne
+    @JoinColumn(name="order_id")
+    private Orders orders;
 
     public Item() {
-        this.itemId = UUID.randomUUID().toString();
+
     }
 
-    public String getItemId() {
-        return itemId;
-    }
+    public Long getId() { return id; }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getItemName() {
         return itemName;
@@ -43,21 +48,27 @@ public class Item {
         this.itemPrice = itemPrice;
     }
 
-    public int getItemsInStock() {
-        return itemsInStock;
+    public int getQuantityInStock() {
+        return quantityInStock;
     }
 
-    public void setItemsInStock(int itemsInStock) {
-        this.itemsInStock = itemsInStock;
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 
     @Override
     public String toString() {
         return "Item{" +
-                "itemId='" + itemId + '\'' +
+                "id=" + id +
                 ", itemName='" + itemName + '\'' +
                 ", itemPrice=" + itemPrice +
-                ", itemsInStock=" + itemsInStock +
+                ", quantityInStock=" + quantityInStock +
+                ", orders=" + orders +
                 '}';
     }
 }
