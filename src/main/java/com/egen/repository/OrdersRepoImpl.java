@@ -1,6 +1,7 @@
 package com.egen.repository;
 
 import com.egen.enums.OrderStatus;
+import com.egen.exception.OrderNotFoundException;
 import com.egen.model.Orders;
 import org.springframework.stereotype.Repository;
 
@@ -35,11 +36,10 @@ public class OrdersRepoImpl implements OrdersRepo{
 
     public List<Orders> findWithinInterval(Timestamp startTime, Timestamp endTime) {
 
-        Query query = em.createQuery("SELECT ord From Orders ord WHERE ord.dateOrdered > :startTime " +
-                "AND ord.dateOrdered >: endTime")
+        Query query = em.createQuery("SELECT ord From Orders ord WHERE ord.dateOrdered BETWEEN :startTime AND :endTime")
                 .setParameter("startTime",startTime).setParameter("endTime",endTime);
         if(query.getResultList().isEmpty()){
-            return null;
+            throw new OrderNotFoundException("Orders in the given interval not found");
         }
         List<Orders> orders = query.getResultList();
         return orders;

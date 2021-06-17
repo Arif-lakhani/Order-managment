@@ -62,7 +62,7 @@ public class OrderController {
         return ordersService.findTop10OrdersWithHighestDollarAmountInZip(zip);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/placeOrder",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+    @RequestMapping(method = RequestMethod.POST,value = "/placeorder",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void placeOrder(@RequestBody InputData inputData){
         System.out.println(inputData.toString());

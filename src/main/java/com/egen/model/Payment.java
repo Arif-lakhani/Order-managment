@@ -33,6 +33,14 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(double amount, Timestamp paymentDate, PaymentMethod paymentMode, Address billingAddress, Orders orders) {
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.paymentMode = paymentMode;
+        this.billingAddress = billingAddress;
+        this.orders = orders;
+    }
+
     public Long getId() {
         return id;
     }

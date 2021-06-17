@@ -28,10 +28,18 @@ public class ItemRepoImpl implements ItemRepo{
     public void updateItem(long id, int quantity) {
         Item currentItem = getItem(id);
        int itemsLeft = currentItem.getQuantityInStock() - quantity;
-       System.out.println("Items left ="+ itemsLeft+" in "+id);
        if(itemsLeft>=0){
           currentItem.setQuantityInStock(itemsLeft);
        }
       em.merge(currentItem);
+    }
+
+    public void updateOrderIdInItem(long id, Orders order) {
+        System.out.println("item id:"+id);
+        Item currentItem = getItem(id);
+        currentItem = new Item(id, currentItem.getItemName(), currentItem.getItemPrice(),currentItem
+        .getQuantityInStock(),order);
+       System.out.println(order.getId());
+        em.merge(currentItem);
     }
 }
