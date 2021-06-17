@@ -47,8 +47,8 @@ public class OrderController {
     }
 
     @PostMapping(value = "/order")
-    public void placeOrder(@RequestBody List<Order> order){
-        this.orderDataMock.setOrders(order);
+    public void placeOrder(@RequestBody Order order){
+        this.orderDataMock.addOrder(order);
     }
 
     @PutMapping(value = "/order/{id}")
@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @PutMapping(value = "/order/{id}")
-    public ResponseEntity<OrderStatus> updateOrder(@PathVariable(name = "id") String id){
-        return ResponseEntity.ok(this.orderDataMock.updateOrder(id));
+    public ResponseEntity<OrderStatus> updateOrder(@PathVariable(name = "id") String id, @RequestBody Order order){
+        return ResponseEntity.ok(this.orderDataMock.updateOrder(id, order));
     }
 }

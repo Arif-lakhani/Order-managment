@@ -58,8 +58,11 @@ public class OrderData {
         this.orderList = orderList;
     }
 
+    public void addOrder(Order order){
+        this.orderList.add(order);
+    }
     public Order getOrderById(String id) {
-        for (Order order : orderList) {
+        for (Order order : this.orderList) {
             if(order.getId().equals(id))
                 return order;
         }
@@ -73,17 +76,20 @@ public class OrderData {
     }
 
     public OrderStatus cancelOrder(String id){
-        for(Order order : orderList){
+        for(Order order : this.orderList){
             if(order.getId().equals(id)){
+                this.orderList.remove(order);
                 return OrderStatus.CANCELLED;
             }
         }
         return null;
     }
 
-    public OrderStatus updateOrder(String id){
-        for(Order order : orderList){
-            if(order.getId().equals(id)){
+    public OrderStatus updateOrder(String id, Order order){
+        for(Order o : this.orderList){
+            if(o.getId().equals(id)){
+                this.orderList.remove(o);
+                this.orderList.add(order);
                 return OrderStatus.MODIFIED;
             }
         }
