@@ -1,4 +1,4 @@
-package com.egen.MockData;
+package com.egen.MockDataRepository;
 
 import com.egen.model.*;
 import org.springframework.stereotype.Repository;
