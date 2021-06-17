@@ -4,9 +4,7 @@ import com.egen.model.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -58,9 +56,6 @@ public class OrderData {
         this.orderList = orderList;
     }
 
-    public void addOrder(Order order){
-        this.orderList.add(order);
-    }
     public Order getOrderById(String id) {
         for (Order order : this.orderList) {
             if(order.getId().equals(id))
@@ -73,6 +68,29 @@ public class OrderData {
 
         return this.orderList.stream().filter(order -> order.getCreated_date().hashCode() >= startTime.hashCode() &&
                 order.getCreated_date().hashCode() < endTime.hashCode()).collect(Collectors.toList());
+    }
+
+    static class sortByPrice implements Comparator<Order>
+    {
+        public int compare(Order a, Order b)
+        {
+            return (int) (a.getOrder_total() - b.getOrder_total());
+        }
+    }
+
+    public List<Order> getTop10Order(String zip){
+
+        List<Order> list = new ArrayList<>();
+        for(Order order : this.orderList){
+            if(Long.parseLong(zip) == (order.getOrder_shipping_address().getZipCode())){
+                list.add(order);
+            }
+        }
+        list.sort(new sortByPrice());
+        return list.subList(0, 9);
+    }
+    public void addOrder(Order order){
+        this.orderList.add(order);
     }
 
     public OrderStatus cancelOrder(String id){

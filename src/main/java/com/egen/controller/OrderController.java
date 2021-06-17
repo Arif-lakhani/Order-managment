@@ -43,7 +43,7 @@ public class OrderController {
     @GetMapping(value = "/order", params = {"zip"})
     public ResponseEntity<List<Order>> top10OrdersWithHighestDollarAmountInZip(@RequestParam(name = "zip") String zip){
         //TODO
-        return ResponseEntity.ok(this.orderDataMock.getOrders());
+        return ResponseEntity.ok(this.orderDataMock.getTop10Order(zip));
     }
 
     @PostMapping(value = "/order")
