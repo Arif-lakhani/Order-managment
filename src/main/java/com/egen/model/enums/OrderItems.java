@@ -1,7 +1,9 @@
-package com.egen.model;
+package com.egen.model.enums;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
 @Entity
@@ -9,10 +11,13 @@ public class OrderItems {
 
     @Id
     private String order_item_id;
-    private String order_id;
     private String order_item_name;
     private int order_item_qty;
     private Double order_item_unit_price;
+
+    @ManyToOne
+    @JoinColumn(name="order_id", nullable = false)
+    private Orders orders;
 
     public OrderItems(){
         this.order_item_id = UUID.randomUUID().toString();
@@ -24,14 +29,6 @@ public class OrderItems {
 
     public void setOrder_item_id(String order_item_id) {
         this.order_item_id = order_item_id;
-    }
-
-    public String getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
     }
 
     public String getOrder_item_name() {

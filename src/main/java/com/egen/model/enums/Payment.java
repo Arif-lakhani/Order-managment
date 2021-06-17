@@ -1,9 +1,7 @@
-package com.egen.model;
-
-import com.egen.model.enums.PaymentMethod;
+package com.egen.model.enums;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -12,8 +10,7 @@ public class Payment {
     @Id
     private String payment_id;
 
-    private String order_payment_method;
-    private ZonedDateTime order_payment_date;
+    private Timestamp order_payment_date;
     private Double order_payment_confirmation_number;
     private Double order_payment_amount;
 
@@ -21,8 +18,12 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @OneToOne
-    private Billing billing;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Address billingAddress;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders orders;
 
     public Payment(){
         this.payment_id = UUID.randomUUID().toString();
@@ -36,19 +37,11 @@ public class Payment {
         this.payment_id = payment_id;
     }
 
-    public String getOrder_payment_method() {
-        return order_payment_method;
-    }
-
-    public void setOrder_payment_method(String order_payment_method) {
-        this.order_payment_method = order_payment_method;
-    }
-
-    public ZonedDateTime getOrder_payment_date() {
+    public Timestamp getOrder_payment_date() {
         return order_payment_date;
     }
 
-    public void setOrder_payment_date(ZonedDateTime order_payment_date) {
+    public void setOrder_payment_date(Timestamp order_payment_date) {
         this.order_payment_date = order_payment_date;
     }
 
@@ -68,19 +61,40 @@ public class Payment {
         this.order_payment_amount = order_payment_amount;
     }
 
-    public Billing getBilling() {
-        return billing;
-    }
-
-    public void setBilling(Billing billing) {
-        this.billing = billing;
-    }
-
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "payment_id='" + payment_id + '\'' +
+                ", order_payment_date=" + order_payment_date +
+                ", order_payment_confirmation_number=" + order_payment_confirmation_number +
+                ", order_payment_amount=" + order_payment_amount +
+                ", paymentMethod=" + paymentMethod +
+                ", billingAddress=" + billingAddress +
+                ", orders=" + orders +
+                '}';
     }
 }

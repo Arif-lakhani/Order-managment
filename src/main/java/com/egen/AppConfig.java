@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com.egen")
 @EnableWebMvc
 public class AppConfig extends WebMvcConfigurationSupport {
 	//TODO: override addCorsMappings Method to allow cross origin request to API
