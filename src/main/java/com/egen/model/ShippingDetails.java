@@ -23,6 +23,10 @@ public class ShippingDetails {
     @Column(name = "zipcode")
     private String zipcode;
 
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public ShippingDetails(){
         this.shippingDetailsId = UUID.randomUUID().toString();
     }
@@ -92,5 +96,19 @@ public class ShippingDetails {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    @Override
+    public String toString() {
+        return "ShippingDetails{" +
+                "shippingDetailsId='" + shippingDetailsId + '\'' +
+                ", shippingMethod='" + shippingMethod + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", order=" + order +
+                '}';
     }
 }

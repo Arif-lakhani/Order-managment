@@ -1,19 +1,16 @@
 package com.egen.model;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private  String id;
+    @Column(name = "order_id")
+    private  String orderid;
     @Column(name = "customer_id")
     private String customerId;
     @Column(name = "customer_name")
@@ -37,9 +34,9 @@ public class Order {
     @Column(name = "order_tax")
     private double orderTax;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private Set<Payments> payments;
+    private List<Payments> payments;
 
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "order_id")
@@ -51,19 +48,20 @@ public class Order {
 
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private Set<Item> items = new HashSet<>();
+    private List<Item> items;
 
     public Order(){
-        this.id = UUID.randomUUID().toString();
+        System.out.println("order constructor");
+        this.orderid = UUID.randomUUID().toString();
         this.createdDate = new Timestamp(new  Date().getTime());
     }
 
-    public Order(String id, String customerId, String customerName, String customerEmail, String status,
+    public Order(String orderid, String customerId, String customerName, String customerEmail, String status,
                  Date createdDate, Date modifiedDate, String notes, double orderShippingCharges,
                  double orderSubtotal, double orderTotal, double orderTax,
-                 Set<Payments> payments, BillingDetails billingDetails, ShippingDetails shippingDetails,
-                 Set<Item> items) {
-        this.id = id;
+                 List<Payments> payments, BillingDetails billingDetails, ShippingDetails shippingDetails,
+                 List<Item> items) {
+        this.orderid = orderid;
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -81,16 +79,16 @@ public class Order {
         this.items = items;
     }
 
-    public Order(String id){
-        this.id = id;
+    public Order(String orderid){
+        this.orderid = orderid;
     }
 
     public String getId() {
-        return id;
+        return orderid;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.orderid = orderid;
     }
 
     public String getCustomerId() {
@@ -181,11 +179,11 @@ public class Order {
         this.orderTax = orderTax;
     }
 
-    public Set<Payments> getPayments() {
+    public List<Payments> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Payments> payments) {
+    public void setPayments(List<Payments> payments) {
         this.payments = payments;
     }
 
@@ -205,11 +203,33 @@ public class Order {
         this.shippingDetails = shippingDetails;
     }
 
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderid='" + orderid + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", status='" + status + '\'' +
+                ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
+                ", notes='" + notes + '\'' +
+                ", orderShippingCharges=" + orderShippingCharges +
+                ", orderSubtotal=" + orderSubtotal +
+                ", orderTotal=" + orderTotal +
+                ", orderTax=" + orderTax +
+                ", payments=" + payments +
+                ", billingDetails=" + billingDetails +
+                ", shippingDetails=" + shippingDetails +
+                ", items=" + items +
+                '}';
     }
 }

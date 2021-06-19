@@ -22,6 +22,10 @@ public class BillingDetails {
     @Column(name = "zipcode")
     private String zipcode;
 
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public BillingDetails(){
         this.billingDetailsId = UUID.randomUUID().toString();
     }
@@ -81,5 +85,18 @@ public class BillingDetails {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    @Override
+    public String toString() {
+        return "BillingDetails{" +
+                "billingDetailsId='" + billingDetailsId + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", order=" + order +
+                '}';
     }
 }

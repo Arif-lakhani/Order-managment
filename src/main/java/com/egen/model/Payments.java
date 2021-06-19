@@ -25,6 +25,10 @@ public class Payments {
     @Column(name = "payment_card_cvv")
     private String paymentCardCVV;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public Payments(){
         this.paymentId = UUID.randomUUID().toString();
     }
@@ -94,5 +98,19 @@ public class Payments {
 
     public void setPaymentCardCVV(String paymentCardCVV) {
         this.paymentCardCVV = paymentCardCVV;
+    }
+
+    @Override
+    public String toString() {
+        return "Payments{" +
+                "paymentId='" + paymentId + '\'' +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", paymentDate=" + paymentDate +
+                ", paymentConfirmationNumber='" + paymentConfirmationNumber + '\'' +
+                ", paymentAmount=" + paymentAmount +
+                ", paymentCardNumber='" + paymentCardNumber + '\'' +
+                ", paymentCardCVV='" + paymentCardCVV + '\'' +
+                ", order=" + order +
+                '}';
     }
 }
