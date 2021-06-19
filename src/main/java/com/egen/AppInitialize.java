@@ -1,7 +1,8 @@
 package com.egen;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class AppInitialize extends AbstractAnnotationConfigDispatcherServletInitializer{
 /**
  * implement the following methods
@@ -9,7 +10,8 @@ public class AppInitialize extends AbstractAnnotationConfigDispatcherServletInit
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[0];
+
+		return new Class<?>[]{AppConfig.class, JPAConfig.class};
 
 	}
 
@@ -20,6 +22,7 @@ public class AppInitialize extends AbstractAnnotationConfigDispatcherServletInit
 
 	@Override
 	protected String[] getServletMappings() {
-		return new  String[]{};
+		log.info("asd");
+		return new  String[]{"/"};
 	}
 }
