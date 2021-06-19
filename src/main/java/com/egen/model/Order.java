@@ -1,5 +1,4 @@
 package com.egen.model;
-//
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -49,6 +48,10 @@ public class Order {
 
     public OrderStatus getOrderStatus() {
         return status;
+    }
+
+    public void setOrderStatus(OrderStatus status){
+        this.status = status;
     }
 
     public String getOrderCustomerId() {

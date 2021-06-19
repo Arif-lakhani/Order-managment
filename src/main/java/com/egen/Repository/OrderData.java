@@ -1,4 +1,4 @@
-package com.egen.MockDataRepository;
+package com.egen.Repository;
 
 import com.egen.model.*;
 import org.springframework.stereotype.Repository;
@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Deprecated
 @Repository
 public class OrderData {
 
